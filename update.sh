@@ -1,8 +1,10 @@
 #! /bin/bash
 
-git pull --recurse-submodules
+git pull
+cd pub
+git pull
+cd ..
 datapath="pub/data/$(date +%Y_%m_%d)"
-datapath="pub/data/2023_04_16"
 if [ -d "$datapath" ]; then
     fgrep -h "  - {\"name\":" $datapath/*.yaml > input.list
     ./Rename.py
@@ -10,6 +12,7 @@ if [ -d "$datapath" ]; then
     rm input.list output.list
 
     git add v2rayse.yaml
+    git add pub
     git commit -m"update"
     git push
 fi
